@@ -1,0 +1,13 @@
+node_modules/
+generated-jsdoc/
+package-lock.json
+local.json
+**.tgz
+**.tar.gz
+dirsum.txt
+**.tmp
+**.rpm
+last_healthcheck
+lib/
+oci-build/
+**.nopush

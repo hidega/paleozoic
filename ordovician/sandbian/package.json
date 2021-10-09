@@ -1,0 +1,13 @@
+{
+  "name": "@ordovician/sandbian",
+  "version": "1.1.1",
+  "description": "Android app builder",
+  "private": true,
+  "dependencies": {
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**"
+  ]
+}
