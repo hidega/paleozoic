@@ -1,0 +1,14 @@
+{
+  "name": "@devonian/nodebase-build",
+  "version": "1.0.1",
+  "description": "Base NodeJs image",
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "build.sh",
+    "commons.sh",
+    "run.sh",
+    "Dockerfile",
+    "opt/**"
+  ]
+}

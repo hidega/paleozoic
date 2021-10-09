@@ -1,0 +1,2 @@
+Build the base  devonian-mongodb  image, which is Fedora (almost) current plus
+MongoDB binaries.  Effective MongoDB images are built atop this image.

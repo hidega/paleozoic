@@ -1,0 +1,20 @@
+{
+  "name": "@permian/trstream",
+  "version": "1.0.1",
+  "description": "transformer stream",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@permian/build-tasks": "../build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks/run"
+  },
+  "files": [
+    "index.js",
+    "dirsum.txt",
+    "lib/**"
+  ],
+  "dependencies": {
+    "event-stream": "^4.0.1"
+  }
+}

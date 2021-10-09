@@ -1,0 +1,19 @@
+{
+  "name": "@devonian/mongodb-img",
+  "version": "1.1.1",
+  "description": "Base MongoDB image",
+  "private": true,
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@devonian/image-builder": "../image-builder",
+    "@devonian/commons": "../commons",
+    "@devonian/deployment-contract": "../deployment-contract",
+    "@permian/build-tasks": "../../permian/build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "tasks.js"
+  ]
+}

@@ -1,0 +1,10 @@
+HTTP/HTTPS proxy
+
+request URI: 
+https://<boundIp>:<port>/<selector>(/<additional-path>)[0..1]?<parameter-list>[0..1]
+
+redirect entry: (hosts, selector, path, port, websocket)
+
+redirect URI: 
+http://<host>:<port>/path[0..1](/<additional-path>)[0..1]?<parameter-list>[0..1]
+

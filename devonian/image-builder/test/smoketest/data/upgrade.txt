@@ -1,0 +1,35 @@
+2.2 Update Fedora 33/32/31/30 Packages
+
+Just make sure that you have all latest packages installed.
+
+dnf --refresh upgrade
+
+2.3 Reboot Your System
+
+Just make sure that you are running latest kernel.
+
+reboot
+
+2.4 Install/Update dnf-plugin-system-upgrade package
+
+It’s probably installed already.
+
+dnf install dnf-plugin-system-upgrade --best
+
+2.5 Start Upgrading Using DNF
+
+dnf system-upgrade download --refresh --releasever=34
+
+When this finish, check if there is any errors. You might need
+
+--best
+
+and
+
+--allowerasing
+
+options to get all packages downloaded.
+2.6 Start (F33 to F34) Upgrade Process
+
+dnf system-upgrade reboot
+

@@ -1,0 +1,18 @@
+{
+  "name": "@alembic/keyserver",
+  "version": "1.1.1",
+  "description": "Keyserver image creator",
+  "private": true,
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@alembic/deployment": "../deployment",
+    "@permian/build-tasks": "../../permian/build-tasks",
+    "@devonian/statichttpd-task": "../../devonian/statichttpd-task"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "tasks.js"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@devonian/pull-images",
+  "version": "1.1.1",
+  "description": "Tasks to build images and related artifacts",
+  "dependencies": {
+    "@permian/build-tasks": "../../permian/build-tasks",
+    "@devonian/sh-support": "../sh-support",
+    "@devonian/commons": "../commons"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "pull-images.js"
+  ]
+}

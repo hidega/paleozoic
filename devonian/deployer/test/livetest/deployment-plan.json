@@ -1,0 +1,44 @@
+{
+  "id": "livetest",
+  "storageLimit": {
+    "limit": "500m"
+  },
+  "images": [
+    "hidand-nodebase_1.tar.gz",
+    "hidand-monitor_1.tar.gz",
+    "hidand-i2871fsv_1.tar.gz"
+  ],
+  "shortDescription": "Live test on the development workstation",
+  "starterScript": {
+    "dir": "/etc/init.d",
+    "scriptFile": "devonian-starter"
+  },
+  "manager": {
+    "unhealthyActionFile": "action_if_unhealthy",
+    "healthcheckPeriodMins": 2
+  },
+  "containers": [
+    {
+      "image": "hidand/i2871fsv:1",
+      "name": "i2871fsv",
+      "publish": {
+        "onHost": 18080,
+        "onContainer": 9000
+      },
+      "healthCmd": "/opt/prg/i2871fsv/package/healthcheck.sh",
+      "healthInterval": "30s",
+      "healthRetries": 2,
+      "healthStartPeriod": "60s",
+      "healthTimeout": "20s",
+      "memory": "200m",
+      "env": "VAR=value",
+      "cpus": 0.5
+    }, {
+      "image": "hidand/monitor",
+      "name": "monitor",
+      "memory": "200m",
+      "env": "VAR1=value1",
+      "cpus": 0.5
+    }
+  ]
+}

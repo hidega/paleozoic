@@ -1,0 +1,16 @@
+{
+  "esversion": 11,
+  "eqeqeq": true,
+  "freeze": true,
+  "nocomma": true,
+  "node": true,
+  "expr": true,
+  "asi": true,
+  "nonew": true,
+  "latedef": true,
+  "maxerr": 100,
+  "undef": true,
+  "globals": { 
+    "BigInt": true 
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "sources": ["src/my-module.js"],
+  "skip": ["-.a.b6", "-.lodash"],
+  "allowedCtrs": [ { "path": "-.Ctr", "args": [1, 2] }]
+}

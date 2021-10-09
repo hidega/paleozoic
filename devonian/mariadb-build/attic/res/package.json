@@ -1,0 +1,14 @@
+{
+  "name": "@devonian/mariadb-build",
+  "version": "1.0.1",
+  "description": "Base MariaDB image",
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "build.sh",
+    "run.sh",
+    "README",
+    "Dockerfile",
+    "opt/**"
+  ]
+}

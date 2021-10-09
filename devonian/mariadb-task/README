@@ -1,0 +1,20 @@
+MariaDB base image builder task
+
+{
+  !imageName: String         The name of the generated image. 
+  ?targetPath: String        The output image file, default is /tmp/image.img .
+  ?buildDir: String          The temporary build directory.
+  ?keepTmpData: Boolean      Keep the temporary build directory or remove it after the build.
+  ?podmanOpts: String        Options for podman when building the image.
+  ?runScript: String         The script to run in the  RUN  section of the generated Dockerfile that is used to build the image.
+                             Some specific commands are prepended.
+}
+
+Image level settings: 
+  RUN script
+
+Container level settings: 
+  the data dir volume which is mounted
+  mysql user id
+  'hint' environment variable
+  network details such as IP address, hostname, hosts

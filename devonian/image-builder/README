@@ -1,0 +1,15 @@
+Image builder
+
+options:
+
+{
+  !imageName: String         The name of the generated image.
+  !baseImage: String         The base image of the generated image.
+  !optDir: String            The  opt  directory structure to be included in the image.
+  ?targetPath: String        The output image file, default is /tmp/image.img .
+  ?buildDir: String          The temporary build directory.
+  ?keepTmpData: Boolean      Keep the temporary build directory or remove it after the build.
+  ?donotSave: Boolean        Not used.
+  ?podmanOpts: String        Options for podman when building the image.
+  ?runScript: String         The script to run in the  RUN  section of the generated Dockerfile that is used to build the image.
+}

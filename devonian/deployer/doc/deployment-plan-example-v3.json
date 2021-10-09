@@ -1,0 +1,69 @@
+{
+  "id": "someDeploymentPlanId",
+  "description": "Short description of this deployment plan",
+  "virtualServerNode": {
+    "maintenance": {
+      "baseCrontabFile": "/opt/etc/crontab-base",
+      "serviceContainerHealthcheckIntervalSecs": 120
+    },
+    "network": {
+      "ipRange": "192.168.33.0/24",
+      "name": "devoniannet"
+    } 
+  },
+  "serviceContainers": {
+    "imageLocations": [
+      "https://devoniannode@some-uri.com:5678/path/frasnian-fileserver_15675.tar.gz",
+      "https://devoniannode@some-uri.com:5678/path/frasnian-proxy_12235.tar.gz"
+    ],
+    "volumeContainers": [
+      {
+        "imageName": "some-volume-66776876865754:1",
+        "name": "fileservervolume"
+      }
+    ],
+    "restContainers": [
+      {
+        "imageName": "some-proxy-66776876865754:1",
+        "name": "proxy",
+        "publish": {
+          "onHost": 8443,
+          "onContainer": 18443
+        },
+        "hostname": "proxy",
+        "hosts": [
+          {
+            "name": "some-remote-host",
+            "ip": "1.2.3.4"
+          },
+          {
+            "name": "another-remote-host",
+            "ip": "1.2.3.5"
+          }
+        ],
+        "healthInterval": "30s",
+        "healthRetries": 2,
+        "healthStartPeriod": "60s",
+        "healthTimeout": "20s",
+        "cpus": 0.5
+      },
+      {
+        "name": "fileserver",
+        "imageName": "imgfileserver",
+        "volumeContainerName": "fileservervolume"
+      },
+      {
+        "name": "configserver",
+        "imageName": "imgconfigserver"
+      },
+      {
+        "name": "mariadb-replica-1",
+        "imageName": "mariadb-replica-1774753743",
+        "chown": {
+          "midwa": [],
+          "mysql": []
+        }
+      }
+    ]
+  }
+}

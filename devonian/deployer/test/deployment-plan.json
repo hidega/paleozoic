@@ -1,0 +1,71 @@
+{
+  "id": "someid",
+  "storageLimit": {
+    "limit": "50000m"
+  },
+  "shortDescription": "Short description",
+  "starterScript": {
+    "dir": "/tmp",
+    "scriptFile": "devonian-starter.sh"
+  },
+  "manager": {
+    "unhealthyActionFile": "action_if_unhealthy",
+    "healthcheckPeriodMins": 2
+  },
+  "podmanOpts": "--cgroup-manager=cgroupfs",
+  "commands": {
+    "podman": "./podman.sh",
+    "bash": "bash", 
+    "logger": "./logger.sh", 
+    "cat": "cat", 
+    "touch": "touch", 
+    "chmod": "chmod", 
+    "mkdir": "mkdir", 
+    "crontab": "./crontab"
+  },
+  "containers": [
+    {
+      "image": "docker.io/hidand/i1986hw:1",
+      "name": "i1986hw",
+      "publish": {
+        "onHost": 18080,
+        "onContainer": 54111
+      },
+      "hostname": "host-i1986hw",
+      "healthCmd": "/opt/prg/nodejs/bin/node /opt/prg/i1896hw/package/index.js healthcheck",
+      "healthInterval": "30s",
+      "hosts": [ 
+        { "name": "somehost", "ip": "1.2.3.4" }, 
+        { "name": "anotherhost", "ip": "1.2.3.5" } 
+      ],
+      "healthRetries": 2,
+      "healthStartPeriod": "60s",
+      "healthTimeout": "20s",
+      "memory": "200m",
+      "env": {
+        "name": "VAR",
+        "value": "val"
+      },
+      "cpus": 0.1
+    }, {
+      "image": "docker.io/hidand/i4567xxx:1",
+      "name": "i4567xxx",
+      "publish": {
+        "onHost": 2345,
+        "onContainer": 4567
+      },
+      "hostname": "host-i4567xxx",
+      "healthCmd": "/opt/prg/nodejs/bin/node /opt/prg/i4567xxx/package/index.js healthcheck",
+      "healthInterval": "30s",
+      "healthRetries": 2,
+      "healthStartPeriod": "60s",
+      "healthTimeout": "20s",
+      "memory": "200m",
+      "env": {
+        "name": "VAR1",
+        "value": "val1"
+      },
+      "cpus": 0.1
+    }
+  ]
+}

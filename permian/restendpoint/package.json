@@ -1,0 +1,21 @@
+{
+  "name": "@permian/restendpoint",
+  "version": "1.1.1",
+  "description": "Generic REST endpoint",
+  "private": true,
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@permian/commons": "../commons"
+  },
+  "devDependencies": {
+    "@permian/build-tasks": "../build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "index.js",
+    "js-doc.html",
+    "src/**"
+  ]
+}

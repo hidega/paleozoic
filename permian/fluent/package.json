@@ -1,0 +1,11 @@
+{
+  "name": "@permian/fluent",
+  "version": "1.1.1",
+  "description": "Tool to construct simple fluent APIs.",
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**"
+  ]
+}

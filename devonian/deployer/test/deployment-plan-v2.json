@@ -1,0 +1,82 @@
+{
+  "id": "someid",
+  "storageLimit": {
+    "limit": "50000m"
+  },
+  "shortDescription": "Short description",
+  "manager": {
+    "unhealthyActionFile": "action_if_unhealthy",
+    "healthcheckPeriodMins": 2
+  },
+  "podmanOpts": "--cgroup-manager=cgroupfs",
+  "commands": {
+    "podman": "./podman.sh",
+    "bash": "bash", 
+    "logger": "./logger.sh", 
+    "cat": "cat", 
+    "touch": "touch", 
+    "chmod": "chmod", 
+    "mkdir": "mkdir", 
+    "crontab": "./crontab"
+  },
+  "maintenance": {
+    "syslogCleanupIntervalHours": 4,
+    "containerLogCleanupIntervalHours": 8,
+    "dailyRestartTimeHour": 23,
+    "healthcheckFailureEmail": "a.b@c.org"
+  },
+  "images": [
+    "https://some-uri.com/path/devonian-nodebase_1.tar.gz",
+    "https://some-uri.com/path/frasnian-proxy_1.tar.gz",
+    "https://some-uri.com/path/frasnian-fileserver_1.tar.gz",
+    "https://some-uri.com/path/famennian-i2781mis_1.tar.gz"
+  ],
+  "volumeContainers": [
+    {
+      "baseImage": "busybox",
+      "name": "fileservervolume",
+      "forceDelete": false
+    }
+  ],
+  "containers": [
+    {
+      "name": "fileserver",
+      "volumeContainerName": "fileservervolume"
+    }, {
+      "name": "microservices",
+      "image": "famennian/i2781mis:1",
+      "hostname": "microservices",
+      "memory": "200m",
+      "cpus": 0.2,
+      "parameters": {
+        "helloworld": {},
+        "timeserver": {}
+      },
+      "expose": [ 1234, 2345 ]
+    }, {
+      "image": "frasnian/proxy:1",
+      "name": "proxy",
+      "publish": {
+        "onHost": 8443,
+        "onContainer": 18443
+      },
+      "hostname": "proxy",
+      "hosts": [ 
+        { 
+          "name": "some-remote-host", 
+          "ip": "1.2.3.4" 
+        }, { 
+          "name": "anotherhost", 
+          "ip": "1.2.3.5" 
+        } 
+      ],
+      "healthInterval": "30s",
+      "healthRetries": 2,
+      "healthStartPeriod": "60s",
+      "healthTimeout": "20s",
+      "memory": "200m",
+      "cpus": 0.5,
+      "parameters": {}
+    }
+  ]
+}

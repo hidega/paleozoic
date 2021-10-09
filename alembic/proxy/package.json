@@ -1,0 +1,23 @@
+{
+  "name": "@alembic/proxy",
+  "version": "1.1.1",
+  "description": "Proxy image creator",
+  "private": true,
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@permian/build-tasks": "../../permian/build-tasks",
+    "@devonian/deployment-contract": "../../devonian/deployment-contract",
+    "@devonian/image-builder": "../../devonian/image-builder",
+    "@permian/proxy": "../../permian/proxy",
+    "@permian/query": "../../permian/query",
+    "@alembic/deployment": "../deployment",
+    "webpack": "^5.32.0"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "index.js",
+    "tasks.js"
+  ]
+}

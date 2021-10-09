@@ -1,0 +1,30 @@
+REST service image builder task
+
+options:
+
+{
+  ?serviceDir: String          When provided, it specifies a directory which must contain a  start.sh  and a  healthcheck.sh
+                               file.  Either this parameter or  devonianService  must be provided but not both.
+  ?devonianService: {          This parameter indicates that predefined service configuration is used.  Either this parameter 
+                               or  serviceDir  must be provided but not both.
+    !mainJsPath:               The path to the  main.js  file.
+    ?setupScriptPath: String   This optional parameter may specify the path to the setup script.         
+  }                            
+  ?runScript: String           The script to run in the  RUN  section of the generated Dockerfile that is used to build the image.
+                               Some specific commands are prepended.
+  !imageName: String           The name of the generated image.
+  ?targetPath: String          The output image file, default is /tmp/image.img .
+  ?buildDir: String            The temporary build directory.
+  ?keepTmpData: Boolean        Keep the temporary build directory or remove it after the build.
+  ?podmanOpts: String          Options for podman when building the image.
+}
+
+Image level settings: 
+  RUN script
+  either custom service dir or standard configuration with start.sh/healthcheck.sh/setup.sh
+
+Container level settings: 
+  effective user name and id
+  'hint' environment variable
+  port exposure and publicity
+  network details such as IP address, hostname, hosts

@@ -1,0 +1,5 @@
+npm run tr image
+
+creates the NodeJS base image.  Service images are built atop this image.
+
+test/smoketest.sh  checks the image

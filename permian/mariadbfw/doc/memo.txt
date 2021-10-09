@@ -1,0 +1,11 @@
+https://mariadb.com/kb/en/server-system-variables/
+
+https://dev.mysql.com/doc/refman/5.7/en/error-log-rotation.html
+
+https://mariadb.com/kb/en/mysqladmin/
+
+find files containing text
+grep -rnw './' -e 'host'
+
+GRANT USAGE ON *.* TO testssl@localhost REQUIRE SSL; -- to force ssl
+

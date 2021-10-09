@@ -1,0 +1,22 @@
+{
+  "name": "@devonian/mariadb-task",
+  "version": "1.1.1",
+  "description": "mariadb-task",
+  "private": true,
+  "devDependencies": {
+    "@silurian/build-tasks": "../build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "dependencies": {
+    "@permian/commons": "../../permian/commons",
+    "@permian/mariadbfw": "../../permian/mariadbfw",
+    "mariadb": "^2.4.2"
+  },
+  "files": [
+    "index.js",
+    "js-doc.html",
+    "src/**"
+  ]
+}

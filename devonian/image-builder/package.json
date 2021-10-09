@@ -1,0 +1,22 @@
+{
+  "name": "@devonian/image-builder",
+  "version": "1.1.1",
+  "description": "Podman image builder tools",
+  "dependencies": {
+    "@devonian/commons": "../commons",
+    "@devonian/deployment-contract": "../deployment-contract",
+    "@devonian/sh-support": "../sh-support"
+  },
+  "devDependencies": {
+    "@permian/build-tasks": "../../permian/build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**"
+  ]
+}

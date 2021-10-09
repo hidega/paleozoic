@@ -1,0 +1,22 @@
+{
+  "name": "@permian/websocket",
+  "version": "1.1.2",
+  "description": "Websocket wrappers",
+  "private": true,
+  "devDependencies": {
+    "@permian/build-tasks": "http://95.140.42.5:18080/npm/prod/permian-build-tasks-1.1.1.tgz"
+  },
+  "dependencies": {
+    "ws": "^7.2.1"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**",
+    "ws-browser-client.js",
+    "js-doc.html"
+  ]
+}

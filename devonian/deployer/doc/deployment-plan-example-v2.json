@@ -1,0 +1,8 @@
+{
+  "id": "someHostSystemId",
+  "hostSystem": {
+    "docker": {
+
+    }
+  }
+}

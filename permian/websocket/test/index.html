@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    
+    <title>Websocket test</title>
+          
+    <script src="../ws-browser-client.js"></script>   
+
+    <script>
+      var websocketClient = new permian.WebsocketClient('ws://127.0.0.1:37590', {
+        error: function(event) { console.error('ERROR', event); },
+        close: function(code, event) { console.log('CLOSE', code, event); },
+        message: function(data, event) { console.log('MESSAGE', data, event); },
+        open: function(event) { 
+          console.log('OPEN', event);
+          websocketClient.send('upward message'); 
+        }
+      });
+    </script>     
+  </head>
+ 
+  <body>
+    <div></div>
+  </body>
+</html>

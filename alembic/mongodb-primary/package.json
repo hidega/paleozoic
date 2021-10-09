@@ -1,0 +1,16 @@
+{
+  "name": "@alembic/mongodb-primary",
+  "version": "1.1.1",
+  "description": "MongoDB primary",
+  "private": true,
+  "devDependencies": {
+    "@permian/build-tasks": "../../permian/build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "tasks.js"
+  ]
+}

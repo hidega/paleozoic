@@ -1,0 +1,48 @@
+{
+  "name": "@permian/commons",
+  "version": "1.1.4",
+  "description": "Common utilities",
+  "private": true,
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@permian/query": "../query",
+    "@permian/runner": "../runner",
+    "@permian/fluent": "../fluent",
+    "@permian/matcher": "../matcher",
+    "app-root-path": "^3.0.0",
+    "lodash.clamp": "^4.0.3",
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.has": "^4.5.2",
+    "lodash.isboolean": "^3.0.3",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isinteger": "^4.0.4",
+    "lodash.isnil": "^4.0.0",
+    "lodash.isnumber": "^3.0.3",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isstring": "^4.0.1",
+    "lodash.isundefined": "^3.0.1",
+    "lodash.max": "^4.0.1",
+    "lodash.merge": "^4.6.2",
+    "lodash.min": "^4.0.1",
+    "lodash.random": "^3.2.0",
+    "lodash.tosafeinteger": "^4.0.4",
+    "lodash.union": "^4.6.0",
+    "lodash.uniqueid": "^4.0.1",
+    "lodash.unset": "^4.5.2"
+  },
+  "devDependencies": {
+    "@permian/build-tasks": "../build-tasks",
+    "lodash": "^4.17.15"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "index.js",
+    "js-doc.html",
+    "src/**"
+  ]
+}

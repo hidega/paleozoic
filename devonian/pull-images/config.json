@@ -1,0 +1,9 @@
+{
+  "images": [
+    "alpine-3_14.img.gz",
+    "devonian-mariadb.img.gz",
+    "devonian-nodebase.img.gz",
+    "fedora-34.img.gz"
+  ],
+  "imageRepositoryUrl": "http://95.140.42.5:18080/img"
+}

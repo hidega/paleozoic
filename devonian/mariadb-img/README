@@ -1,0 +1,2 @@
+Build the base  devonian-mariadb  image, which is Alpine (almost) current plus
+MariaDB server binaries.  Effective MariaDB images are built atop this image.

@@ -1,0 +1,9 @@
+{
+  "allowedCtrs": [
+    { "path": "-.lang.ObjectBuilder", "args": null },
+    { "path": "-.proc.ExclusiveScheduler", "args": null },
+    { "path": "-.proc.StdLogger", "args": null },
+    { "path": "-.proc.StreamLogger", "args": null }
+  ],
+  "skip": ["-.files.fsPromises"]
+}

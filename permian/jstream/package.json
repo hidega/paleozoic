@@ -1,0 +1,20 @@
+{
+  "name": "@permian/jstream",
+  "version": "1.1.1",
+  "description": "JSON handling utilities",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@permian/commons": "http://95.140.42.5:18080/npm/dev/permian-commons-1.1.4.tgz"
+  },
+  "devDependencies": {
+    "@permian/build-tasks": "../build-tasks"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "index.js",
+    "js-doc.html",
+    "src/**"
+  ]
+}

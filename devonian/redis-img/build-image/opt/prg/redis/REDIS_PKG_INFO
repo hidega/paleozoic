@@ -1,0 +1,7 @@
+{
+ "name":"titicaca-redis", 
+ "buildParameters":"BUILD_TLS=yes", 
+ "redisVersion":"6.2.5",
+ "buildDate":"2021-09-20T09:11:11+00:00", 
+ "alpineVersion":"3.14.2" 
+}

@@ -1,0 +1,3 @@
+02 * * * * root valami_cmd > /dev/null 2>&1
+02 * * * * root eredetileg_eddigh > /dev/null 2>&1
+*/02 * * * * root /home/andras/git_repos/permian/deployer/test/healthcheck.sh > /dev/null 2>&1

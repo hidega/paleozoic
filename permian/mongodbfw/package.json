@@ -1,0 +1,22 @@
+{
+  "name": "@permian/mongodbfw",
+  "version": "1.0.1",
+  "description": "MongoDB helpers",
+  "private": true,
+  "dependencies": {
+    "@permian/commons": "../commons",
+    "mongodb": "^4.1.0"
+  },
+  "devDependencies": {
+    "@permian/build-tasks": "../build-tasks"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "files": [
+    "index.js",
+    "js-doc.html",
+    "src/**"
+  ]
+}

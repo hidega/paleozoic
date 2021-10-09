@@ -1,0 +1,45 @@
+(1) Check parameters
+- check secret
+- check deployment plan file or find in current folder
+
+(2) Check system
+- check Linux
+- check required commands
+- add commands to deployment plan
+
+(3) Set storage limit
+- if configuration is missing, add default value to deployment plan
+- set new value in configuration file
+
+(4) Setup networking
+- add network name and address space to deployment plan
+- remove then create network
+
+(5) Install container images
+- download if name starts with 'http(s)://'
+- check existence otherwise
+- install images, remove if exists
+
+(6) Create volume containers
+- if the container does not exist then create with  podman run
+- if the container exists and forceDelete is set then delete and create
+
+(7) Create service containers
+- delete the container
+- create the container with  podman create
+- copy the config file into the container
+- start the container
+
+(8) Set up healthchecks
+- schedule healthecks in cron with special comments
+
+(9) Set up other cron tasks
+- remove lines with special comments
+- syslog cleanup with special comment
+- podman and container log cleanup with special comment
+- schedule daily restarts between H and H+1 hours randomly with special comment
+
+(10) Finalize
+- check whether all containers are running
+- save effective deployment plan
+

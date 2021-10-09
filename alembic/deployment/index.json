@@ -1,0 +1,34 @@
+{
+  "proxy": {
+    "imageName": "alembic-proxy",
+    "hostname": "proxy",
+    "internalPort": 12568,
+    "pingPath": "/PING",
+    "internalIp": "192.168.33.51",
+    "hostIp": "127.0.0.1",
+    "hostPort": 8443
+  },
+  "crypto": {
+    "certSubject": "/C=HU/ST=Budapest/L=Budapest/O=Aleutian_Studio/OU=IT_Department/CN=aleutianstudio.hu"
+  },
+  "net": {
+    "internalIpBase": "192.168.33"
+  },
+  "keyServer": {
+    "internalIp": "192.168.33.11",
+    "internalPort": 16754,
+    "hostname": "keyserver",
+    "imageName": "alembic-keyserver"
+  },
+  "fileServer": {
+    "internalIp": "192.168.33.12",
+    "internalPort": 14329,
+    "imageName": "alembic-fileserver",
+    "hostname": "fileserver",
+    "proxySelector": "fileserver",
+    "vdc": {
+      "dataDir": "/home/andras/tmp/vdc",
+      "containerName": "fileservervdc"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "doc": {
+    "srcFile": "doc-src.json",
+    "output": "js-doc.html"
+  },
+  "srcDirs": {
+    "js": "src"
+  },
+  "jshint": {
+    "reportFile": "jshint-report.xml"
+  },
+  "upload": {
+    "host": "95.140.42.5",
+    "sshPort": "4224",
+    "httpPort": "18080",
+    "user": "andras",
+    "protocol": "http",
+    "npmPath": "npm/dev",
+    "remoteDir": "/home/andras/www/npm/dev"
+  },
+  "webpack": {
+    "entryFile": "index.js",
+    "distDir": "dist",
+    "distFile": "main.js"
+  },
+  "localPkgPrefixes": [
+    "permian-",
+    "silurian-",
+    "devonian-",
+    "ordovician-"
+  ],
+  "hashFile": "pkgsum.json"
+}
