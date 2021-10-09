@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-. ../commons.sh
+. ./commons.sh
 
 $OCI image rm -f titicaca/redis-build:1
 
