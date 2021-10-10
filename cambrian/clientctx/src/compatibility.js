@@ -4,7 +4,7 @@ var checkDesktopChrome = window => true
 
 var checkDesktopMozilla = window => true
 
-var clientOk = window => Promise.resolve(window)
+var clientOk = w => w
 
 var checkCompatibility = commons.MatcherBuilder()
   .on(checkDesktopChrome, clientOk)
