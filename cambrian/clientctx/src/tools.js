@@ -17,6 +17,7 @@ function InputBuilder(window) {
 
 var getTools = window => ({
   jsonToCss: json => Object.keys(json).map(k => k + ': ' + json[k] + ';').join('\n'),
+  pageTemplate: params => '',
   divBuilder: () => new ElementBuilder(window, 'div'),
   inputBuilder: () => new InputBuilder(window),
   spanBuilder: () => new ElementBuilder(window, 'span')
