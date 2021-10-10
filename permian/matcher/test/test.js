@@ -250,12 +250,31 @@ var caseWhen = () => {
   assert.equal(when_5(), 2)
   assert.equal(when_5(false), 4)
 
+  var when_5a = matcher.WhenBuilder()
+    .isNil((a, k) => {
+      assert(k === 10)
+      return 2
+    })
+    .then((a, k) => {
+      assert(k === 10)
+      assert(a === '1')
+      return 3
+    })
+    .otherwise((a, k) => {
+      assert(k === 10)
+      return 4 
+    })
+    .build()
+  assert.equal(when_5a('1', 10), 3)
+  assert.equal(when_5a(undefined, 10), 2)
+  assert.equal(when_5a(false, 10), 4)
+
   var when_6 = matcher.WhenBuilder()
-    .isNil(a => {
+    .isNil((a, k) => {
       assert(a === null)
       return 2
     })
-    .then(a => {
+    .then((a, k) => {
       assert(a === '1')
       return 3
     })

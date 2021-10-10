@@ -14,14 +14,14 @@ var boolEvaluate = obj => {
 }
 
 var build = {
-  handler: ctx => ctx.result = arg => {
+  handler: ctx => ctx.result = (arg, k) => {
     var result
     if (fluent.util.isNil(arg) && ctx.onNil) {
-      result = ctx.onNil(arg)
+      result = ctx.onNil(arg, k)
     } else if (boolEvaluate(arg) && ctx.onTrue) {
-      result = ctx.onTrue(arg)
+      result = ctx.onTrue(arg, k)
     } else {
-      result = ctx.otherwise(arg)
+      result = ctx.otherwise(arg, k)
     }
     return result
   }

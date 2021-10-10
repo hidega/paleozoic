@@ -1,0 +1,21 @@
+{
+  "name": "@cambrian/clientctx",
+  "version": "1.0.1",
+  "description": "Web client context",
+  "private": true,
+  "devDependencies": {
+    "@permian/build-tasks": "../../permian/build-tasks"
+  },
+  "dependencies": {
+    "@permian/commons": "../../permian/commons"
+  },
+  "scripts": {
+    "tr": "node ./node_modules/@permian/build-tasks"
+  },
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**",
+    "js-doc.html"
+  ]
+}
