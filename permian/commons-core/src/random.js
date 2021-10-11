@@ -15,7 +15,7 @@ module.exports = {
   rndString: (len, base) => {
     base ??= rndStrAlpahanum
     var result = ''
-    for (; result.length < len; result += base[Math.floor(Math.random() * base.length)]) {}
+    for (; result.length < len; result += base[Math.floor(Math.random() * base.length)]) { }
     return result
   }
 }

@@ -11,7 +11,7 @@ function ThrottlingController(action, mwt) {
         clearTimeout(toHandle)
         toHandle = setTimeout(() => state.timeout(), maxWaitingTimeMs)
       },
-      requestCompleted: () => {},
+      requestCompleted: () => { },
       timeout: () => {
         state = states.processing
         setImmediate(action)
@@ -39,10 +39,9 @@ function ThrottlingController(action, mwt) {
 
   this.dispose = () => {
     state = states.halt
-    this.notifyRequest = () => {}
-    this.notifyRequestCompleted = () => {}
+    this.notifyRequest = () => { }
+    this.notifyRequestCompleted = () => { }
   }
 }
 
 module.exports = ThrottlingController
-

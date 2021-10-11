@@ -20,4 +20,3 @@ function ObjectBuilder() {
 ObjectBuilder.newInstance = () => new ObjectBuilder()
 
 module.exports = ObjectBuilder
-

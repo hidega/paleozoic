@@ -28,4 +28,4 @@ Fsa.createErrorState = n => Object.freeze({
 
 Fsa.createInstance = startState => new Fsa(startState)
 
-module.exports = Object.freeze(Fsa)
+module.exports = Fsa

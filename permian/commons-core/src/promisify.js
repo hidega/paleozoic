@@ -20,7 +20,7 @@ module.exports = {
   },
   extractParamsAndCallback1: (p, c) => {
     var parameters = {}
-    var callback = () => {}
+    var callback = () => { }
     if (_.isFunction(p)) {
       if (_.isFunction(c)) {
         parameters = p

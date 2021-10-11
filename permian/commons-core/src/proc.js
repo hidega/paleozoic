@@ -20,7 +20,7 @@ var uuid = () => {
 
 var uuidHex = () => BigInt(uuid()).toString(16).padStart(uidlen, '0')
 
-module.exports = Object.freeze({
+module.exports = {
   setTimeoutPr: (f, timeout) => new Promise(resolve => setTimeout(() => {
     f()
     resolve()
@@ -35,4 +35,4 @@ module.exports = Object.freeze({
     return simpleUid.toString()
   },
   ThrottlingController
-})
+}
