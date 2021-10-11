@@ -1,3 +1,3 @@
 var commons = require('./src')
 
-module.exports = commons
+module.exports = Object.freeze(commons)

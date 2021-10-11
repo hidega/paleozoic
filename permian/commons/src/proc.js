@@ -1,15 +1,9 @@
 var os = require('os')
-var _ = require('./lodash')
-var string = require('./string')
-var date = require('./date')
-var Fsa = require('./fsa')
-var ThrottlingController = require('./throttling-controller')
-var {spawnProcess} = require('@permian/runner')
-var {execCmd} = require('@permian/runner')
+var commonsCore = require('@permian/commons-core')
+var { spawnProcess } = require('@permian/runner')
+var { execCmd } = require('@permian/runner')
 
-var simpleUid = BigInt(0)
-
-var streamWriteWithTimestamp = (str, stream) => stream.write(`${date.isoDateNow()} ${str}`)
+var streamWriteWithTimestamp = (str, stream) => stream.write(`${commonsCore.date.isoDateNow()} ${str}`)
 
 function StreamLogger(owner, stream) {
   var write = (s, r) => {
@@ -26,19 +20,19 @@ function StdLogger(owner) {
 }
 
 StdLogger.mutedInstance = Object.freeze({
-  info: () => {},
-  error: () => {}
+  info: () => { },
+  error: () => { }
 })
 
-var systemPropertiesHash = string.simpleHashNat('' + os.arch() + os.hostname() + JSON.stringify(os.cpus()) + os.type() + JSON.stringify(os.userInfo()) + os.release() + os.platform() + JSON.stringify(os.networkInterfaces()))
+var systemPropertiesHash = commonsCore.string.simpleHashNat('' + os.arch() + os.hostname() + JSON.stringify(os.cpus()) + os.type() + JSON.stringify(os.userInfo()) + os.release() + os.platform() + JSON.stringify(os.networkInterfaces()))
 
 var uuid = () => {
   var mu = process.memoryUsage()
   return '' +
-    parseInt(Math.random() * 1000000) +
+    parseInt(Math.random() * 100000) +
     (mu.rss % 100) +
     (os.freemem() % 100000) +
-    _.uniqueId() +
+    commonsCore.proc.getSimpleUid() +
     (process.pid + process.ppid + parseInt(Math.random() * 10000)) +
     ((systemPropertiesHash + mu.heapUsed) % 1000000) +
     (Date.now() % 10000000)
@@ -46,29 +40,20 @@ var uuid = () => {
 
 var uuidHex = () => BigInt(uuid()).toString(16).padStart(32, '0')
 
-module.exports = {
-  setTimeoutPr: (f, timeout) => new Promise((resolve, reject) => setTimeout(() => {
-    f()
-    resolve()
-  }, timeout)),
+var proc = {
   terminateProcess: err => {
     err && console.log('ERROR\n', JSON.stringify(err, null, 2), '\n')
     process.exit(err ? 1 : 0)
   },
+  execCmd,
   uuid: uuid().substring(0, 32).padStart(32, '0'),
   uuidHex,
   stdoutWrite: str => process.stdout.write(str),
-  sleep: (timeoutMs, callback) => callback ? setTimeout(callback, timeoutMs) : new Promise(r => setTimeout(r, timeoutMs)),
-  StdLogger: Object.freeze(StdLogger),
+  StdLogger,
   StreamLogger,
   spawnProcess,
   cwd: process.cwd(),
-  Fsa,
-  execCmd,
-  getSimpleUid: () => {
-    simpleUid = simpleUid + BigInt(1)
-    return simpleUid.toString()
-  },
-  ThrottlingController,
   stdoutWriteWithTimestamp: str => streamWriteWithTimestamp(str, process.stdout)
 }
+
+module.exports = Object.assign({}, commonsCore.proc, proc)

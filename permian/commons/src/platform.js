@@ -28,7 +28,7 @@ var katch = f => {
   }
 }
 
-var platform = Object.freeze({
+module.exports = {
   platformName: pf,
   isGetUidSupported: p => p === 'linux',
   type: os.type(),
@@ -48,7 +48,4 @@ var platform = Object.freeze({
   isUbuntu: () => katch(() => fs.readFileSync('/etc/os-release').toString().includes('ubuntu')),
   isArchLinux: () => katch(() => fs.existsSync('/etc/arch-release')),
   username: os.userInfo().username,
-})
-
-module.exports = platform
-
+}

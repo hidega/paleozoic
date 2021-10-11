@@ -1,5 +1,5 @@
 {
-  "name": "@permian/web-commons",
+  "name": "@permian/commons-web",
   "version": "1.1.1",
   "description": "Common utilities for webclients",
   "private": true,
