@@ -338,7 +338,7 @@ assertEquals(commons.lang.narrowObject({}, ['a', 'b']), {})
 assert(commons.lang.narrowObject({ f: a => a + 1 }, ['f']).f(2) === 3)
 
 {
-  var builder = new commons.lang.ObjectBuilder()
+  var builder = commons.lang.ObjectBuilder.newInstance()
   builder.add('a', 1)
   builder.add('b', 2)
   assert(commons.lang.isEqual({ a: 1, b: 2 }, builder.build()))

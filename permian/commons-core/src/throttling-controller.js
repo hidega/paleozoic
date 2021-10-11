@@ -1,19 +1,15 @@
-function ThrottlingController(action, mwt) {
-  var maxWaitingTimeMs = mwt || 1000
-
+var createStates = (action, maxWaitingTimeMs, getState, setState) => {
   var toHandle = false
-  var state = false
   var wasRequest = false
-
   var states = {
     idle: {
       request: () => {
         clearTimeout(toHandle)
-        toHandle = setTimeout(() => state.timeout(), maxWaitingTimeMs)
+        toHandle = setTimeout(() => getState().timeout(), maxWaitingTimeMs)
       },
       requestCompleted: () => { },
       timeout: () => {
-        state = states.processing
+        setState(states.processing)
         setImmediate(action)
       }
     },
@@ -24,24 +20,35 @@ function ThrottlingController(action, mwt) {
           wasRequest = false
           setImmediate(action)
         } else {
-          state = states.idle
+          setState(states.idle)
         }
       }
     },
     halt: {}
   }
-
-  state = states.idle
-
-  this.notifyRequest = () => state.request()
-
-  this.notifyRequestCompleted = () => state.requestCompleted()
-
-  this.dispose = () => {
-    state = states.halt
-    this.notifyRequest = () => { }
-    this.notifyRequestCompleted = () => { }
-  }
+  return states
 }
 
-module.exports = ThrottlingController
+var createThrottlingController = (action, mwt) => {
+  var maxWaitingTimeMs = mwt || 1000
+  var state = false
+  var states = createStates(action, maxWaitingTimeMs, () => state, s => state = s)
+  state = states.idle
+
+  var throttlingController = {
+    notifyRequest: () => state.request(),
+    notifyRequestCompleted: () => state.requestCompleted()
+  }
+
+  throttlingController.dispose = () => {
+    state = states.halt
+    throttlingController.notifyRequest = () => { }
+    throttlingController.notifyRequestCompleted = () => { }
+  }
+
+  return throttlingController
+}
+
+module.exports = {
+  newInstance: (action, mwt) => createThrottlingController(action, mwt)
+}

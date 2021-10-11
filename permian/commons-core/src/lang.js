@@ -9,9 +9,10 @@ var bufferize = require('./bufferize')
 var traverseObject = require('./traverse-object')
 var ObjectBuilder = require('./object-builder')
 
-function Wrapper(obj, publicFns) {
-  var self = this
-  Object.entries(obj).forEach(e => _.isFunction(e[1]) && publicFns.includes(e[0]) && (self[e[0]] = e[1]))
+var wrap = (obj, publicFns) => {
+  var result = {}
+  Object.entries(obj).forEach(e => _.isFunction(e[1]) && publicFns.includes(e[0]) && (result[e[0]] = e[1]))
+  return result
 }
 
 var isPromise = o => _.isFunction(o?.then)
@@ -35,7 +36,7 @@ var lang = {
   matcherBuilder: matcher,
   whenBuilder: when,
   newInstance: (Ctr, ...args) => new Ctr(...args),
-  wrap: (obj, publicFns) => new Wrapper(obj, publicFns),
+  wrap,
   createError: (message, code) => {
     var e = new Error(message.toString())
     code && (e.code = code)

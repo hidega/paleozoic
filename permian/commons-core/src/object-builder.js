@@ -1,22 +1,24 @@
 var _ = require('./lodash')
 
-function ObjectBuilder() {
-  var obj = {}
-  this.add = (k, v) => {
-    obj[k] = v
-    return this
+var objectBuilder = {
+  newInstance: () => {
+    var obj = {}
+    var builder = {}
+    builder.add = (k, v) => {
+      obj[k] = v
+      return builder
+    }
+    builder.addIfNotNil = (k, v) => {
+      v !== null && v !== undefined && (obj[k] = v)
+      return builder
+    }
+    builder.unset = k => {
+      _.unset(obj, k)
+      return builder
+    }
+    builder.build = () => _.cloneDeep(obj)
+    return builder
   }
-  this.addIfNotNil = (k, v) => {
-    v !== null && v !== undefined && (obj[k] = v)
-    return this
-  }
-  this.unset = k => {
-    _.unset(obj, k)
-    return this
-  }
-  this.build = () => _.cloneDeep(obj)
 }
 
-ObjectBuilder.newInstance = () => new ObjectBuilder()
-
-module.exports = ObjectBuilder
+module.exports = Object.freeze(objectBuilder)
