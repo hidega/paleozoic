@@ -1,21 +1,21 @@
-var util = require('util')
+var {promisify} = require('es6-promisify')
 var _ = require('./lodash')
 
 module.exports = {
   promisifyIfNoCallback0: f => {
-    var p = util.promisify(f)
+    var p = promisify(f)
     return callback => callback ? f(callback) : p()
   },
   promisifyIfNoCallback1: f => {
-    var p = util.promisify(f)
+    var p = promisify(f)
     return (a, callback) => callback ? f(a, callback) : p(a)
   },
   promisifyIfNoCallback2: f => {
-    var p = util.promisify(f)
+    var p = promisify(f)
     return (a, b, callback) => callback ? f(a, b, callback) : p(a, b)
   },
   promisifyIfNoCallback3: f => {
-    var p = util.promisify(f)
+    var p = promisify(f)
     return (a, b, c, callback) => callback ? f(a, b, c, callback) : p(a, b, c)
   },
   extractParamsAndCallback1: (p, c) => {

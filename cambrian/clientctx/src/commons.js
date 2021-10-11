@@ -1,8 +1,8 @@
-var commons = require('@permian/web-commons')
+var commons = require('@permian/commons-web')
 
 module.exports = {
-  WhenBuilder: commons.matcher.WhenBuilder,
+  whenBuilder: commons.lang.whenBuilder,
   isObject: commons.lang.isObject,
-  MatcherBuilder: commons.matcher.MatcherBuilder,
+  matcherBuilder: commons.lang.matcherBuilder,
   throwError: commons.lang.throwError
 }

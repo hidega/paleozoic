@@ -6,7 +6,7 @@ var checkDesktopMozilla = window => true
 
 var clientOk = w => w
 
-var checkCompatibility = commons.MatcherBuilder()
+var checkCompatibility = commons.matcherBuilder()
   .on(checkDesktopChrome, clientOk)
   .on(checkDesktopMozilla, clientOk)
   .otherwise(window => Promise.reject('Unsupported user agent: ' + window.navigator.userAgent))
