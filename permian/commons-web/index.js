@@ -1,7 +1,3 @@
-var lang = require('./lang')
-var matcher = require('@permian/matcher')
+var commons = require('./src')
 
-module.exports = {
-  lang,
-  matcher
-}
+module.exports = Object.freeze(commons)

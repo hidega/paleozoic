@@ -13,6 +13,8 @@ var assertEquals = (a, b) => assert(commons.lang.isEqual(a, b))
 
 assert(commons.files.pathFromArray(['a', 'b', 'c']) === path.sep + 'a' + path.sep + 'b' + path.sep + 'c')
 
+assert(commons.lang.isObject({}))
+
 assert(!!commons.files.systemTmpDir)
 {
   var str = 'Abdefghi01234567'

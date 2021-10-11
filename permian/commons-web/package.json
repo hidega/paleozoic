@@ -5,22 +5,7 @@
   "private": true,
   "license": "Apache-2.0",
   "dependencies": {
-    "@permian/fluent": "../fluent",
-    "@permian/matcher": "../matcher",
-    "lodash.clamp": "^4.0.3",
-    "lodash.clone": "^4.5.0",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.has": "^4.5.2",
-    "lodash.isempty": "^4.4.0",
-    "lodash.isequal": "^4.5.0",
-    "lodash.max": "^4.0.1",
-    "lodash.merge": "^4.6.2",
-    "lodash.min": "^4.0.1",
-    "lodash.random": "^3.2.0",
-    "lodash.tosafeinteger": "^4.0.4",
-    "lodash.union": "^4.6.0",
-    "lodash.uniqueid": "^4.0.1",
-    "lodash.unset": "^4.5.2"
+    "@permian/commons-core": "../commons-core"
   },
   "files": [
     "index.js",
