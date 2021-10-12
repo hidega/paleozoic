@@ -1,17 +1,17 @@
 var commons = require('./commons')
 var http = require('./http')
 
-var toArray = path => commons.when(Array.isArray(path)).then(path).otherwise(() => path.split('/'))
+var toArray = commons.whenBuilder().then(p => p).otherwise(p => p.split('/'))
 
-var preparePath = path => toArray(path).filter(e => e.length > 0)
+var preparePath = path => toArray(Array.isArray(path), path).filter(e => e.length > 0)
 
-var prepend = (method, obj, p) => p.reverse().concat(method).reduce((acc, p) => ({
-  [p]: acc
-}), obj)
+var prepend = (method, obj, p) => p.reverse().concat(method).reduce((acc, p) => ({ [p]: acc }), obj)
 
-module.exports = (p, handlers, path = preparePath(p)) => commons.when(path.length > 0)
-  .then(() => http.ALLOWED_METHODS.reduce((acc, m) => {
-    handlers[m] && Object.assign(acc, prepend(m, handlers[m], Object.assign([], path)), {})
+var prependPath = commons.whenBuilder()
+  .then(p => http.ALLOWED_METHODS.reduce((acc, m) => {
+    p.handlers[m] && Object.assign(acc, prepend(m, p.handlers[m], Object.assign([], p.path)), {})
     return acc
   }, {}))
-  .otherwise(handlers)
+  .otherwise(p => p.handlers)
+
+module.exports = (p, handlers, path = preparePath(p)) => prependPath(path.length > 0, { handlers, path })

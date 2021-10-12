@@ -1,5 +1,4 @@
 var commons = require('./commons')
-var http = require('./http')
 var ResponseTypeSetter = require('./response-type-setter')
 
 var writeResponse = (obj, response) => response.end(commons.isString(obj) || Buffer.isBuffer(obj) ? obj : JSON.stringify(obj))
@@ -22,16 +21,18 @@ var objectToStream = (request, response, f) => fetchPayloadObject(request).then(
 
 var defaulth = (request, response, f) => f(request, response)
 
-function ContextFactory(request, response) {
-  var responseTypeSetter = processor => new ResponseTypeSetter(processor)
-  this.default = () => responseTypeSetter(defaulth)
-  this.bufferToBuffer = () => responseTypeSetter(bufferToBuffer)
-  this.objectToBuffer = () => responseTypeSetter(objectToBuffer)
-  this.streamToBuffer = () => responseTypeSetter(streamToBuffer)
-  this.emptyToBuffer = () => responseTypeSetter(emptyToBuffer)
-  this.emptyToStream = () => responseTypeSetter(emptyToStream)
-  this.bufferToStream = () => responseTypeSetter(bufferToStream)
-  this.objectToStream = () => responseTypeSetter(objectToStream)
+var newInstance = () => {
+  var responseTypeSetter = processor => ResponseTypeSetter.newInstance(processor)
+  return {
+    default: () => responseTypeSetter(defaulth),
+    bufferToBuffer: () => responseTypeSetter(bufferToBuffer),
+    objectToBuffer: () => responseTypeSetter(objectToBuffer),
+    streamToBuffer: () => responseTypeSetter(streamToBuffer),
+    emptyToBuffer: () => responseTypeSetter(emptyToBuffer),
+    emptyToStream: () => responseTypeSetter(emptyToStream),
+    bufferToStream: () => responseTypeSetter(bufferToStream),
+    objectToStream: () => responseTypeSetter(objectToStream)
+  }
 }
 
-module.exports = ContextFactory
+module.exports = { newInstance }

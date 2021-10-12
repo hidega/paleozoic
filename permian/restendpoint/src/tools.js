@@ -7,7 +7,7 @@ var createError = (msg, code) => ({
   code: code || -1
 })
 
-var tools = Object.freeze({
+var tools = {
   pingTimeoutMs: 5000,
   pingPort: (host, port, callback) => commons.checkIfPortIsReachable(host, port, tools.pingTimeoutMs, callback),
   pingHttpService: (uri, callback) => uri.startsWith('http:') ? commons.httpGet(uri, callback) : commons.throwError('Bad URI'),
@@ -26,6 +26,6 @@ var tools = Object.freeze({
     forbidden: (contextFactory, msg) => tools.responseJsonObject(contextFactory, http.STATUS_FORBIDDEN, createError(msg || 'Forbidden', http.STATUS_FORBIDDEN)),
     badRequest: (contextFactory, msg) => tools.responseJsonObject(contextFactory, http.STATUS_BAD_REQUEST, createError(msg || 'Bad request', http.STATUS_BAD_REQUEST))
   }
-})
+}
 
 module.exports = Object.freeze(tools)

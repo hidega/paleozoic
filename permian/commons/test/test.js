@@ -87,6 +87,11 @@ assert(!!commons.files.systemTmpDir)
   istream.pipe(transformStream).pipe(checkStream).pipe(process.stdout, { end: false })
 }
 
+{
+  assert.notEqual(commons.proc.uuid(), commons.proc.uuid())
+  console.log(commons.proc.uuid())
+}
+
 setTimeout(() => {
   var buffer = Buffer.from(fs.readFileSync('./testdata_128k.txt'))
   assert(buffer.equals(commons.compress.gunzip(commons.compress.gzip(buffer))))

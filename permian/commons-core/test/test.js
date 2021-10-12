@@ -999,13 +999,13 @@ assert(commons.lang.narrowObject({ f: a => a + 1 }, ['f']).f(2) === 3)
     .isNil(2)
     .then(3)
     .otherwise(a => {
-      assert(a === false)
+      assert(a === 6)
       return 4
     })
     .build()
   assert.equal(when_3('1'), 3)
   assert.equal(when_3(null), 2)
-  assert.equal(when_3(false), 4)
+  assert.equal(when_3(false, 6), 4)
 
   var when_4 = commons.lang.whenBuilder()
     .isNil(a => {
@@ -1014,37 +1014,36 @@ assert(commons.lang.narrowObject({ f: a => a + 1 }, ['f']).f(2) === 3)
     })
     .then(3)
     .otherwise(a => {
-      assert(a === false)
+      assert(a === 6)
       return 4
     })
     .build()
   assert.equal(when_4('1'), 3)
   assert.equal(when_4(undefined), 2)
-  assert.equal(when_4(false), 4)
+  assert.equal(when_4(false, 6), 4)
 
   var when_5 = commons.lang.whenBuilder()
     .isNil(2)
     .then(a => {
-      assert(a === '1')
+      assert(a === '')
       return 3
     })
     .otherwise(4)
     .build()
-  assert.equal(when_5('1'), 3)
+  assert.equal(when_5('1', ''), 3)
   assert.equal(when_5(), 2)
   assert.equal(when_5(false), 4)
 
   var when_5a = commons.lang.whenBuilder()
-    .isNil((a, k) => {
+    .isNil(k => {
       assert(k === 10)
       return 2
     })
-    .then((a, k) => {
-      assert(k === 10)
-      assert(a === '1')
+    .then(k => {
+      assert(k === 10) 
       return 3
     })
-    .otherwise((a, k) => {
+    .otherwise(k => {
       assert(k === 10)
       return 4
     })
@@ -1054,38 +1053,38 @@ assert(commons.lang.narrowObject({ f: a => a + 1 }, ['f']).f(2) === 3)
   assert.equal(when_5a(false, 10), 4)
 
   var when_6 = commons.lang.whenBuilder()
-    .isNil((a, k) => {
-      assert(a === null)
+    .isNil(k => {
+      assert(k === null)
       return 2
     })
-    .then((a, k) => {
-      assert(a === '1')
+    .then(k => {
+      assert(k === 3)
       return 3
     })
     .otherwise(4)
     .build()
-  assert.equal(when_6('1'), 3)
-  assert.equal(when_6(null), 2)
+  assert.equal(when_6('1', 3), 3)
+  assert.equal(when_6(null, null), 2)
   assert.equal(when_6(false), 4)
 
   var when_7 = commons.lang.whenBuilder()
     .isNil(2)
     .then(a => {
-      assert(a === '1')
+      assert(a === ' ')
       return 3
     })
     .otherwise(a => {
-      assert(a === false)
+      assert(a === 2)
       return 4
     })
     .build()
-  assert.equal(when_7('1'), 3)
+  assert.equal(when_7('1', ' '), 3)
   assert.equal(when_7(null), 2)
-  assert.equal(when_7(false), 4)
+  assert.equal(when_7(false, 2), 4)
 
   var when_8 = commons.lang.whenBuilder()
     .isNil(a => {
-      assert(a === null)
+      assert(a === 0)
       return 2
     })
     .then(a => {
@@ -1097,9 +1096,9 @@ assert(commons.lang.narrowObject({ f: a => a + 1 }, ['f']).f(2) === 3)
       return 4
     })
     .build()
-  assert.equal(when_8('1'), 3)
-  assert.equal(when_8(null), 2)
-  assert.equal(when_8(false), 4)
+  assert.equal(when_8('2', '1'), 3)
+  assert.equal(when_8(null, 0), 2)
+  assert.equal(when_8(false, false), 4)
 }
 
 {

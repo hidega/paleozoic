@@ -19,11 +19,11 @@ var build = {
   handler: ctx => ctx.result = (arg, k) => {
     var result
     if (_.isNil(arg) && ctx.onNil) {
-      result = ctx.onNil(arg, k)
+      result = ctx.onNil(k)
     } else if (boolEvaluate(arg) && ctx.onTrue) {
-      result = ctx.onTrue(arg, k)
+      result = ctx.onTrue(k)
     } else {
-      result = ctx.otherwise(arg, k)
+      result = ctx.otherwise(k)
     }
     return result
   }

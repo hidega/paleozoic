@@ -1,5 +1,8 @@
 var commons = require('./commons')
 
+var allowedParams = ['id', 'serverShutdownTimeoutMs', 'maxConnections', 'port',
+  'host', 'requestTimeoutMs', 'logToStdout', 'dumpPidToFile', 'protocol']
+
 module.exports = cfg => {
   var result = Object.assign({
     serverShutdownTimeoutMs: 1000,
@@ -12,6 +15,6 @@ module.exports = cfg => {
     id: ''
   }, cfg)
   result.protocol = 'HTTP'
-  commons.hasObjectOtherKeysThan(result, ['id', 'serverShutdownTimeoutMs', 'maxConnections', 'port', 'host', 'requestTimeoutMs', 'logToStdout', 'dumpPidToFile', 'protocol']) && commons.throwError('Bad configuration property for restendpoint')
+  commons.hasObjectOtherKeysThan(result, allowedParams) && commons.throwError('Bad configuration property for restendpoint')
   return result
 }
