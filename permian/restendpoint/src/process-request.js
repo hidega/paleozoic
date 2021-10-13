@@ -39,7 +39,9 @@ var handleRequest = (handlerInfo, params) => {
   var head = { [http.HEADER_CONTENTTYPE]: context.contentType }
   context.encoding && (head[http.HEADER_CONTENTENCODING] = context.encoding)
   params.response.writeHead(context.statusCode, head)
-  context.processor(params.request, params.response).catch(e => handleError(e, 3, params.response, params.logger))
+  var errorHandler = e => handleError(e, 3, params.response, params.logger)
+  var r = commons.try(() => context.processor(params.request, params.response), errorHandler)
+  r && commons.isPromise(r) && r.catch(errorHandler)
 }
 
 module.exports = params => {

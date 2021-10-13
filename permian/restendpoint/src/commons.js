@@ -21,8 +21,10 @@ module.exports = Object.freeze({
   matcherBuilder: commons.lang.matcherBuilder,
   resolvePath: commons.files.resolvePath,
   httpGet: commons.net.http.get,
+  httpPost: commons.net.http.post,
   httpsGet: commons.net.https.get,
   isFunction: commons.lang.isFunction,
   isEqual: commons.lang.isEqual,
+  isPromise: commons.lang.isPromise,
   isntNil: commons.isntNil
 })
