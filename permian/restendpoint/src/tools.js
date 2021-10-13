@@ -7,6 +7,16 @@ var createError = (msg, code) => ({
   code: code || -1
 })
 
+var pingServer = (err, response, callback) => {
+  var resp = commons.try(() => JSON.parse(response.toString()), () => err = 'cannot parse response')
+  err = commons.isEqual(resp, http.PING_OK) ? false: 'bad ping'
+  callback(err)
+}
+
+var pingHttpServer = (url, callback) => commons.httpGet(url, (err, response) => pingServer(err, response, callback))
+
+var pingHttpsServer = (url, callback) => commons.httpsGet(url, (err, response) => pingServer(err, response, callback))
+
 var tools = {
   pingTimeoutMs: 5000,
   pingPort: (host, port, callback) => commons.checkIfPortIsReachable(host, port, tools.pingTimeoutMs, callback),
@@ -14,6 +24,8 @@ var tools = {
   pingHttpsService: (uri, callback) => uri.startsWith('https:') ? commons.httpsGet(uri, callback) : commons.throwError('Bad URI'),
   OK: 'OK',
   NOT_OK: 'NOT_OK',
+  pingHttpServer,
+  pingHttpsServer,
   responseJsonObject: (contextFactory, statusCode, obj) => contextFactory.emptyToBuffer()
     .setContentType(http.CONTENTTYPE_JSON)
     .setStatusCode(obj ? (statusCode || http.STATUS_OK) : http.STATUS_OK)

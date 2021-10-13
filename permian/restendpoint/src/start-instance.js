@@ -1,21 +1,33 @@
 var http = require('http')
+var httpConstants = require('./http')
 var commons = require('./commons')
 var flushResponse = require('./flush-response')
 var processRequest = require('./process-request')
 var parseCfg = require('./parse-cfg')
 var validateHandlers = require('./validate-handlers')
 
-var createLogger = cfg => commons.when(cfg.logToStdout)
-  .isNil(commons.StdLogger.mutedInstance)
-  .otherwise(new commons.StdLogger('restendpoint: ' + cfg.id.substr(0, 16)))
+var createLogger = cfg => cfg.logToStdout ? commons.StdLogger.newInstance('restendpoint: ' + cfg.id.substr(0, 16)) : commons.StdLogger.mutedInstance
 
-var startHttpServer = (handlers, logger, cfg) => http.createServer((request, response) => commons.when(['GET', 'POST', 'PUT', 'DELETE'].includes(request.method))
-    .then(() => processRequest(request, response, handlers, logger))
-    .otherwise(() => flushResponse(response, {
-      statusCode: 4,
-      status: `Method not allowed: ${request.method}`,
-      httpStatusCode: 405
-    })))
+var checkPing = p => p.request.method === httpConstants.GET && p.request.url === ('/' + httpConstants.PING_PATH) 
+
+var answerPing = p => {
+  p.response.writeHead(httpConstants.STATUS_OK)
+  p.response.end(JSON.stringify(httpConstants.PING_OK))
+}
+
+var onRequest = commons.matcherBuilder()
+  .on(checkPing, answerPing)
+  .on(p => httpConstants.ALLOWED_METHODS.includes(p.request.method), p => processRequest(p))
+  .otherwise(p => flushResponse(response, {
+    statusCode: 4,
+    status: `Method not allowed: ${p.request.method}`,
+    httpStatusCode: httpConstants.STATUS_METHOD_NOT_ALLOWED
+  }))
+  .build()
+
+var getRequestHandler = (handlers, logger) => (request, response) => onRequest({ handlers, logger, request, response })
+
+var startHttpServer = (handlers, logger, cfg) => http.createServer(getRequestHandler(handlers, logger))
   .listen(cfg.port, cfg.host)
   .on('error', e => logger.error(`#2 : ${e}`))
 
@@ -41,6 +53,7 @@ module.exports = (requestHandlers, cfg) => {
   var logger = createLogger(configuration)
   var httpServer = createServer(configuration, handlers, logger)
   return {
+    configuration,
     stop: () => {
       shutdownServer(httpServer, logger, configuration.serverShutdownTimeoutMs)
       handlers = false

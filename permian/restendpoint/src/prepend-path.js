@@ -1,7 +1,7 @@
 var commons = require('./commons')
 var http = require('./http')
 
-var toArray = commons.whenBuilder().then(p => p).otherwise(p => p.split('/'))
+var toArray = commons.whenBuilder().then(p => p).otherwise(p => p.split('/')).build()
 
 var preparePath = path => toArray(Array.isArray(path), path).filter(e => e.length > 0)
 
@@ -13,5 +13,6 @@ var prependPath = commons.whenBuilder()
     return acc
   }, {}))
   .otherwise(p => p.handlers)
+  .build()
 
 module.exports = (p, handlers, path = preparePath(p)) => prependPath(path.length > 0, { handlers, path })

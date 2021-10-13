@@ -1,12 +1,11 @@
 var commons = require('./commons')
 
 module.exports = (handlers, path, result = { handler: false }) => {
-  path.find((e, n) => commons.when(commons.isFunction(handlers = handlers[e]))
-    .then(() => {
-      result.handler = handlers
-      result.pos = n
-      return true
-    })
-    .otherwise(() => !handlers))
+  var whenFound = n => {
+    result.handler = handlers
+    result.pos = n
+    return true
+  }
+  path.find((e, n) => commons.isFunction(handlers = handlers[e]) ? whenFound(n) : !handlers)
   return result
-}
+} 

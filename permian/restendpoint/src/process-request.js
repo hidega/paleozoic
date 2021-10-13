@@ -1,6 +1,5 @@
 var url = require('url')
 var commons = require('./commons')
-var { when } = commons
 var http = require('./http')
 var RequestParameters = require('./req-params')
 var flushResponse = require('./flush-response')
@@ -13,9 +12,10 @@ var defaultContext = {
   processor: (request, response) => Promise.resolve(response.end('0'))
 }
 
-var createContext = (reqParams, handler) => when(handler(reqParams, new ContextFactory()))
-  .isNil(defaultContext)
-  .otherwise(o => o)
+var createContext = (reqParams, handler) => {
+  var ctx = handler(reqParams, ContextFactory.newInstance())
+  return ctx || defaultContext
+}
 
 var getPath = request => [request.method].concat(url.parse(request.url).pathname.split('/').splice(1))
 
@@ -24,31 +24,27 @@ var handleError = (e, n, response, logger) => {
   response.writableEnded || response.end(('ERROR: ' + n + ' ' + JSON.stringify(e)).substr(0, 80))
 }
 
-var onBadHandler = (request, response, logger) => {
-  logger.error(`Missing or corrupt handler for ${getPath(request).join('/')}`, 4)
-  flushResponse(response, {
+var onBadHandler = params => {
+  params.logger.error(`Missing or corrupt handler for ${getPath(params.request).join('/')}`, 4)
+  flushResponse(params.response, {
     statusCode: 4,
-    status: `Handler not found: ${request.method}`,
+    status: `Handler not found: ${params.request.method}`,
     httpStatusCode: http.STATUS_NOT_FOUND
   })
 }
 
-var handleRequest = (handlerInfo, request, response, logger) => {
-  var reqParams = new RequestParameters(request, response, logger, handlerInfo.pos)
+var handleRequest = (handlerInfo, params) => {
+  var reqParams = RequestParameters.newInstance(params.request, params.response, params.logger, handlerInfo.pos)
   var context = createContext(reqParams, handlerInfo.handler)
-  var head = {
-    [http.HEADER_CONTENTTYPE]: context.contentType
-  }
+  var head = { [http.HEADER_CONTENTTYPE]: context.contentType }
   context.encoding && (head[http.HEADER_CONTENTENCODING] = context.encoding)
-  response.writeHead(context.statusCode, head)
-  context.processor(request, response).catch(e => handleError(e, 3, response, logger))
+  params.response.writeHead(context.statusCode, head)
+  context.processor(params.request, params.response).catch(e => handleError(e, 3, params.response, params.logger))
 }
 
-module.exports = (request, response, handlers, logger) => {
-  request.on('error', e => handleError(e, 1, response, logger))
-  response.on('error', logger.error)
-  var handlerInfo = findHandler(handlers, getPath(request))
-  when(commons.isFunction(handlerInfo.handler))
-    .then(() => handleRequest(handlerInfo, request, response, logger))
-    .otherwise(() => onBadHandler(request, response, logger))
+module.exports = params => {
+  params.request.on('error', e => handleError(e, 1, params.response, params.logger))
+  params.response.on('error', params.logger.error)
+  var handlerInfo = findHandler(params.handlers, getPath(params.request))
+  commons.isFunction(handlerInfo.handler) ? handleRequest(handlerInfo, params) : onBadHandler(params)
 }

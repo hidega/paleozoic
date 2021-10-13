@@ -23,5 +23,6 @@ module.exports = Object.freeze({
   httpGet: commons.net.http.get,
   httpsGet: commons.net.https.get,
   isFunction: commons.lang.isFunction,
+  isEqual: commons.lang.isEqual,
   isntNil: commons.isntNil
 })
