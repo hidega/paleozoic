@@ -1,5 +1,3 @@
-'use strict'
-
 var fs = require('fs')
 var zlib = require('zlib')
 var restEndpoint = require('@permian/restendpoint')
@@ -15,7 +13,7 @@ var streamFile = (contextFactory, path, contentType, isZipped) => contextFactory
       outstream = zstream
     }
     fs.createReadStream(path)
-      .on('error', () => outstream.end('-------FILE_READ_ERROR-------'))
+      .on(commons.streamEvents.ERROR, () => outstream.end('-------FILE_READ_ERROR-------'))
       .pipe(outstream)
   })
 
@@ -25,7 +23,7 @@ var getFileExtension = filePath => {
 }
 
 var getContentType = (path, types, isZipped) => commons.when(isZipped)
-  .then('application/gzip')
+  .then(restEndpoint.http.CONTENTTYPE_GZIP)
   .otherwise(types[getFileExtension(path)] || restEndpoint.http.CONTENTTYPE_OCTET_STREAM)
 
 module.exports = (contextFactory, path, isZipped, types) => fs.promises.lstat(path)

@@ -1,5 +1,3 @@
-'use strict'
-
 var commons = require('./commons')
 
 var defaultPath = commons.resolvePath(__dirname, 'resources')

@@ -1,5 +1,3 @@
-'use strict'
-
 var commons = require('./commons')
 
 module.exports = p => commons.assignRecursive({

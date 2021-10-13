@@ -1,3 +1,5 @@
 var axios = require('axios')
 
-module.exports = parameters => axios(parameters)
+module.exports = {
+  newInstance: parameters => axios(parameters)
+}

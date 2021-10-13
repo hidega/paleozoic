@@ -1,1 +1,3 @@
-module.exports = require('./src')
+var RestClient = require('./src')
+
+module.exports = Object.freeze(RestClient)

@@ -1,5 +1,3 @@
-'use strict'
-
 var parseParameters = require('./parse-parameters')
 var RestClient = require('./rest-client')
 

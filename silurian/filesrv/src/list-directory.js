@@ -1,23 +1,25 @@
-'use strict'
-
 var fs = require('fs')
 var restEndpoint = require('@permian/restendpoint')
 var commons = require('./commons')
 
-var listDirectory = (contextFactory, path) => fs.promises.readdir(path, { withFileTypes: true })
-  .then(entries => contextFactory.emptyToBuffer()
-    .setStatusCode(restEndpoint.http.STATUS_OK)
-    .setContentType(restEndpoint.http.CONTENTTYPE_JSON)
-    .process(() => entries.map(e => {
-        var type = commons.matcher()
-          .on(e.isDirectory(), 'dir')
-          .on(e.isFile(), 'file')
-          .otherwise('other')
-        return { name: e.name, type }
-      })
-      .filter(e => e.type !== 'other')))
-  .catch(e => restEndpoint.tools.responseJsonError.serverError(contextFactory, JSON.stringify(e).substr(0, 80)))
+var getType = commons.matcherBuilder()
+  .on(e => e.isDirectory(), commons.fileTypes.TYPE_DIR)
+  .on(e => e.isFile(), commons.fileTypes.TYPE_FILE)
+  .otherwise(commons.fileTypes.TYPE_OTHER)
+  .build()
 
-module.exports = (contextFactory, path, allowListing) => commons.when(allowListing)
-  .then(() => listDirectory(contextFactory, path))
-  .otherwise(() => restEndpoint.tools.responseJsonError.forbidden(contextFactory, 'Directory listing is not allowed'))
+var processEntries = (entries, contextFactory) => contextFactory.emptyToBuffer()
+    .setContentType(restEndpoint.http.CONTENTTYPE_JSON)
+    .setStatusCode(restEndpoint.http.STATUS_OK)
+    .process(() => entries.map(e => ({ name: e.name, type: getType(e) })).filter(e => e.type !== commons.fileTypes.TYPE_OTHER))
+
+var listDirectory = (contextFactory, path) => fs.promises.readdir(path, { withFileTypes: true })
+  .then(entries => commons.try(() => processEntries(entries, contextFactory), e => Promise.reject('Cannot read dir: `' + path + '` - ' + e)))
+  .catch(e => restEndpoint.tools.responseJsonError.serverError(contextFactory, JSON.stringify(e).substr(0, 255)))
+
+var checkAllowed = commons.whenBuilder()
+  .then(p => listDirectory(p.contextFactory, p.path))
+  .otherwise(p => restEndpoint.tools.responseJsonError.forbidden(p.contextFactory, 'Directory listing is not allowed'))
+  .build()
+
+module.exports = (contextFactory, path, allowListing) => checkAllowed(allowListing, { contextFactory, path })
