@@ -1,9 +1,7 @@
-'use strict'
-
-var FileServer = require('./fileserver')
+var Server = require('./fileserver')
 var RestClient = require('./rest-client')
 
-module.exports = Object.freeze({
-  FileServer,
+module.exports = {
+  Server,
   RestClient
-})
+}
